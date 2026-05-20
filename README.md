@@ -22,8 +22,6 @@ Production-grade E-Commerce backend built using Spring Boot.
 
 ## Upcoming Features
 
-* Product Module
-* Category Module
 * Cart Module
 * Order Module
 * Payment Integration
