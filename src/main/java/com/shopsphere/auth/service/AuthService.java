@@ -40,7 +40,8 @@ public class AuthService {
 						user.getPassword(),
 						java.util.Collections.emptyList()));
 		
-		return new AuthResponse(token);
+		return new AuthResponse(token,
+				user.getRole().name());
 	}
 	
 	public AuthResponse login(LoginRequest request) {
@@ -60,7 +61,8 @@ public class AuthService {
 	                        )
 	                );
 		 
-		 return new AuthResponse(token);
+		 return new AuthResponse(token,
+				 user.getRole().name());
 				
 	}
 	

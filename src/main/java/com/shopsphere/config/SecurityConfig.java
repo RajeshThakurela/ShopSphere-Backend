@@ -30,20 +30,26 @@ public class SecurityConfig {
 		return http
 				.csrf(csrf->csrf.disable())
 				.authorizeHttpRequests(auth->
-					auth.requestMatchers("api/auth/**")
-					.permitAll()
-					
-					.requestMatchers("/api/admin/**")
-					.hasAuthority("ADMIN")
-					
-					.requestMatchers("/api/seller/**")
-					.hasAuthority("SELLER")
-					
-					.requestMatchers("/api/customer/**")
-					.hasAuthority("CUSTOMER")
-					
-					.anyRequest()
-					.authenticated()
+				 auth.requestMatchers("/api/auth/**")
+			        .permitAll()
+
+			        .requestMatchers("/api/products/**")
+			        .permitAll()
+
+			        .requestMatchers("/api/categories/**")
+			        .permitAll()
+
+			        .requestMatchers("/api/admin/**")
+			        .hasAuthority("ADMIN")
+
+			        .requestMatchers("/api/seller/**")
+			        .hasAuthority("SELLER")
+
+			        .requestMatchers("/api/customer/**")
+			        .hasAuthority("CUSTOMER")
+
+			        .anyRequest()
+			        .authenticated()
 				)
 				.sessionManagement(session->session
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
