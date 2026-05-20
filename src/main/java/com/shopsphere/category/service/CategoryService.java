@@ -9,7 +9,9 @@ import com.shopsphere.category.dto.CategoryRequest;
 import com.shopsphere.category.dto.CategoryResponse;
 import com.shopsphere.category.repository.CategoryRepository;
 import com.shopsphere.entity.Category;
-
+import com.shopsphere.exception.BadRequestException;
+import com.shopsphere.exception.DuplicateResourceException;
+import com.shopsphere.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +27,7 @@ public class CategoryService {
 //		check duplicate category
 		categoryRepository.findByName(request.getName())
 			.ifPresent(category->{
-					throw new RuntimeException("Category already exists!");
+					throw new DuplicateResourceException("Category already exists!");
 					});
 		
 
@@ -64,7 +66,7 @@ public class CategoryService {
 
 	    Category category = categoryRepository.findById(id)
 	            .orElseThrow(() ->
-	                    new RuntimeException("Category not found!"));
+	                    new ResourceNotFoundException("Category not found!"));
 
 	    return mapToResponse(category);
 	}
@@ -72,11 +74,11 @@ public class CategoryService {
 //	delete category by id
 	public String deleteCategory(Long id) {
 		Category category = categoryRepository.findById(id)
-				.orElseThrow(()-> new RuntimeException("Category not found!"));
+				.orElseThrow(()-> new ResourceNotFoundException("Category not found!"));
 		
 //		check product exist or not
 		if(!category.getProduct().isEmpty()) {
-			throw new RuntimeException("Cannot delete category with products.");
+			throw new BadRequestException("Cannot delete category with products.");
 		}
 		
 		categoryRepository.delete(category);
@@ -89,7 +91,7 @@ public class CategoryService {
 	public CategoryResponse updateCategory(Long id,CategoryRequest request) {
 		
 		Category category = categoryRepository.findById(id)
-				.orElseThrow(()-> new RuntimeException("Category not found!"));
+				.orElseThrow(()-> new ResourceNotFoundException("Category not found!"));
 		
 		category.setName(request.getName());
 		category.setDescription(request.getDescription());

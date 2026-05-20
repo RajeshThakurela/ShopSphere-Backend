@@ -10,6 +10,7 @@ import com.shopsphere.category.repository.CategoryRepository;
 import com.shopsphere.entity.Category;
 import com.shopsphere.entity.Product;
 import com.shopsphere.entity.ProductImage;
+import com.shopsphere.exception.ResourceNotFoundException;
 import com.shopsphere.product.dto.ProductRequest;
 import com.shopsphere.product.dto.ProductResponse;
 import com.shopsphere.product.repository.ProductRepository;
@@ -116,7 +117,7 @@ public class ProductService {
 	public String deleteProduct(Long id){
 		
 		Product product = productRepository.findById(id)
-				.orElseThrow(()-> new RuntimeException("Product not found!"));
+				.orElseThrow(()-> new ResourceNotFoundException("Product not found!"));
 		
 		productRepository.delete(product);
 		
