@@ -19,10 +19,12 @@ Production-grade E-Commerce backend built using Spring Boot.
 * JWT Token Generation
 * Role Based Authentication (ADMIN / SELLER / CUSTOMER)
 * Password Encryption (BCrypt)
+* Category module
+* Product module
+* Cart module
 
 ## Upcoming Features
 
-* Cart Module
 * Order Module
 * Payment Integration
 * Review & Rating System
