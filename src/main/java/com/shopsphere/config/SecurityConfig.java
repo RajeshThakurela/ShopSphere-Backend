@@ -47,6 +47,9 @@ public class SecurityConfig {
 
 			        .requestMatchers("/api/customer/**")
 			        .hasAuthority("CUSTOMER")
+			        
+			        .requestMatchers("/api/customer/**")
+			        .hasAuthority("CUSTOMER")
 
 			        .anyRequest()
 			        .authenticated()

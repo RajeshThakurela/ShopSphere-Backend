@@ -1,13 +1,14 @@
 package com.shopsphere.entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,33 +17,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name="carts")
 @Data
-@Table(name="users")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class User {
+public class Cart {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable=false)
-	private String fullName;
+	@OneToOne
+	@JoinColumn(name="user_id", unique=true, nullable=false)
+	private User user;
 	
-	@Column(unique=true, nullable=false)
-	private String email;
+	@OneToMany(
+			mappedBy="cart",
+			cascade=CascadeType.ALL,
+			orphanRemoval=true)
+	private List<CartItem> cartItems;
 	
-	@Column(nullable=false)
-	private String password;
 	
-	@Column(unique=true,nullable=false)
-	private String phone;
-	
-	@Enumerated(EnumType.STRING)
-	private Role role;
-	
-	@OneToOne(mappedBy="user",cascade=CascadeType.ALL)
-	private Cart cart;
-	
-	private boolean enabled=true;
 }
