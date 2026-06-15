@@ -26,7 +26,7 @@ public class ProductRequest {
 	@PositiveOrZero
 	private Integer stock;
 	
-	@NotNull
+	@NotBlank
 	private String brand;
 	
 	private Long category_id;
